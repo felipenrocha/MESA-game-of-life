@@ -15,6 +15,11 @@ class MoneyAgent(mesa.Agent):
             agente_aleatorio = self.random.choice(self.model.schedule.agents)
             agente_aleatorio.riqueza += 1
             self.riqueza -= 1
+    def move(self):
+        celulas_vizinhas = self.model.grid.get_neighborhood(
+            self.pos,
+            moore=True,
+            include_center=False)
 
 
 
