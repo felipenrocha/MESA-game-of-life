@@ -1,8 +1,13 @@
 # arquivo base de tutorial
 
-
+# reference: https://github.com/projectmesa/mesa-examples/blob/master/examples/ConwaysGameOfLife
 import mesa 
+
+
+
+
 def compute_gini(model):
+    # gini for analysis
     agent_wealths = [agent.riqueza for agent in model.schedule.agents]
     x = sorted(agent_wealths)
     N = model.num_agents
