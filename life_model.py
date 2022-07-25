@@ -25,7 +25,13 @@ class GameOfLifeModel(mesa.Model):
 
         for grid_content, x, y in self.grid.coord_iter():
             celula = GameOfLifeAgent((x,y), self)
-            
+            celula.estado = celula.VIVO
+            self.grid.place_agent(celula, (x,y))
+            self.schedule.add(celula)
+    
+    
+    def step(self):
+        self.schedule.step()      
 
 
 
