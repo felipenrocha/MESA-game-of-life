@@ -2,7 +2,7 @@ from typing import Tuple
 import mesa
 from mesa.time import SimultaneousActivation
 from mesa.space import Grid
-
+from random import random
 
 
 class GameOfLifeModel(mesa.Model):
@@ -25,11 +25,13 @@ class GameOfLifeModel(mesa.Model):
 
         for grid_content, x, y in self.grid.coord_iter():
             celula = GameOfLifeAgent((x,y), self)
-            celula.estado = celula.VIVO
+            if random() > 0.4:
+                celula.estado = celula.VIVO
             self.grid.place_agent(celula, (x,y))
             self.schedule.add(celula)
-    
-    
+        self.running = True
+
+
     def step(self):
         self.schedule.step()      
 
@@ -56,10 +58,9 @@ class GameOfLifeAgent(mesa.Agent):
         if self.estado == self.VIVO:
             return True
         return False                
-        
     @property
     def getVizinhos(self):
-            return self.modelo.grid.neighbor_iter((self.x, self.y), True)
+            return self.model.grid.neighbor_iter((self.x, self.y), True)
     
     
     def step(self):
@@ -85,5 +86,12 @@ class GameOfLifeAgent(mesa.Agent):
             if numero_vizinhos_vivos == 3:
                 self.proximoEstado = self.VIVO
 
+
+
+    def advance(self):
+        '''
+        Set the state to the new computed state -- computed in step().
+        '''
         self.estado = self.proximoEstado
+        
 

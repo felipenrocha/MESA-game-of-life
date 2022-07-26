@@ -18,6 +18,8 @@ pip install matplotlib
 ` 
 python run.py
 `
+
+
 ## A adicionar no README:
 1. Apresentação do novo modelo, em sua relação ao modelo original;
 2. Descrição da hipótese causal que você deseja comprovar;
