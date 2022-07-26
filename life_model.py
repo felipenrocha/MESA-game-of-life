@@ -9,15 +9,13 @@ class GameOfLifeModel(mesa.Model):
     """
     Classe para o modelo do Game Of Life
     """
-    def __init__(self):
+    def __init__(self, largura, altura):
         # ativacao simultanea (ao inves de aleatoria) 
         # utilizamos ativacao simultanea por que o proximo estado de cada celula
         # depende do estado atual.
         self.schedule = SimultaneousActivation(self)
-
-
         # novo grid com a altura e largura passado na construcao do objeto
-        self.grid = Grid(50, 50, torus=True)
+        self.grid = Grid(largura, altura, torus=True)
 
         # adicionar celulas aleatoriamente: 
         # TODO: adicionar com um clique para mudar estado da celula
@@ -90,7 +88,7 @@ class GameOfLifeAgent(mesa.Agent):
 
     def advance(self):
         '''
-        Set the state to the new computed state -- computed in step().
+            Declara o proximo estado do grid, definido em step;
         '''
         self.estado = self.proximoEstado
         

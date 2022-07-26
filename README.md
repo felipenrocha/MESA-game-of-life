@@ -8,8 +8,7 @@
 # Bibliotecas
 Install with pip
 `
-pip install mesa
-pip install matplotlib
+pip install -r requirements.txt
 
 ` 
 
