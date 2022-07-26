@@ -1,9 +1,23 @@
 # Author: Felipe Nascimento Rocha
 # Matricula: 17/0050084 
 # GitHub: felipenrocha
+# Versão: Python3
 
 
 
+# Bibliotecas
+Install with pip
+`
+pip install mesa
+pip install matplotlib
+
+` 
+
+# Compilação
+
+` 
+python run.py
+`
 ## A adicionar no README:
 1. Apresentação do novo modelo, em sua relação ao modelo original;
 2. Descrição da hipótese causal que você deseja comprovar;
