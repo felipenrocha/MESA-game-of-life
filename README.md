@@ -18,6 +18,13 @@ pip install -r requirements.txt
 python run.py
 `
 
+# Obs.: Para mudar as variavéis independentes precimaso alterá-las diretamente no arquivo rules.txt
+
+
+
+TODO: mudar as regras para serem mais dinâmicas com o servidor.
+
+
 1. Apresentação do novo modelo, em sua relação ao modelo original;
     Novo modelço com regras de sobrevivência variavéis, ao invés da padrao de John Conway (23/3)
 2. Descrição da hipótese causal que você deseja comprovar;
