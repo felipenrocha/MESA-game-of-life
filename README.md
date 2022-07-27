@@ -5,8 +5,8 @@
 
 
 
-# Bibliotecas
-Install with pip
+# Instalãcao Bibliotecas
+
 `
 pip install -r requirements.txt
 
