@@ -5,6 +5,16 @@ from mesa.space import Grid
 from random import random
 
 
+variable = {}
+with open('rules.txt', 'r') as file:
+    for line in file:
+        name, value = line.replace(' ', '').split('=')
+        variable[name] = value
+        print('stillalive1', variable['stillAlive1'])
+    
+
+
+
 class GameOfLifeModel(mesa.Model):
     """
     Classe para o modelo do Game Of Life
@@ -23,7 +33,7 @@ class GameOfLifeModel(mesa.Model):
 
         for grid_content, x, y in self.grid.coord_iter():
             celula = GameOfLifeAgent((x,y), self)
-            if random() > 0.4:
+            if random() > .4 :
                 celula.estado = celula.VIVO
             self.grid.place_agent(celula, (x,y))
             self.schedule.add(celula)
@@ -41,7 +51,7 @@ class GameOfLifeAgent(mesa.Agent):
     VIVO = 1
     MORTO = 0
 
-    def __init__(self, posicao: Tuple, modelo: mesa.Model, estado_inicial=MORTO):
+    def __init__(self, posicao, modelo , estado_inicial=MORTO):
         """
         Criacao da celula, precismos de um modelo, posicao e estado inicial(vivo ou morto)
         """
@@ -58,13 +68,21 @@ class GameOfLifeAgent(mesa.Agent):
         return False                
     @property
     def getVizinhos(self):
-            return self.model.grid.neighbor_iter((self.x, self.y), True)
+            return self.model.grid.iter_neighbors((self.x, self.y), True)
     
     
-    def step(self):
+    def step(self, stillAlive1=2, stillAlive2=3, born = 3):
         """Define se a celula estara viva ou morta no proximo passo
         """
+        # check if were using different variables @ rules.txt:
+
         # TODO: variaveis independentes aqui de forma dinamica
+        if variable:
+            stillAlive1 = int(variable['stillAlive1'])
+            stillAlive2 = int(variable['stillAlive2'])
+            born = int(variable['born'])
+
+
 
         numero_vizinhos_vivos = 0
         # contando os vizinhos vivos:
@@ -72,16 +90,16 @@ class GameOfLifeAgent(mesa.Agent):
             if vizinho.estaVivo:
                 numero_vizinhos_vivos += 1 
 
-        # game of life basico:
-        # se a celula esta viva e possui 2 ou 3 vizinhos vivos, ela permanece viva
+        # game of life rules:
+      
         if self.estaVivo:
-            if numero_vizinhos_vivos == 2 or numero_vizinhos_vivos == 3:
+            if numero_vizinhos_vivos == stillAlive1 or numero_vizinhos_vivos == stillAlive2:
                 self.proximoEstado = self.VIVO
             else:
                 self.proximoEstado = self.MORTO
         # se a celula esta morta e possui exatamente 3 vizinhos, ela nasce
         else: 
-            if numero_vizinhos_vivos == 3:
+            if numero_vizinhos_vivos == born:
                 self.proximoEstado = self.VIVO
 
 

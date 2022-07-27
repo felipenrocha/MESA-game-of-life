@@ -18,14 +18,16 @@ pip install -r requirements.txt
 python run.py
 `
 
-
-## A adicionar no README:
 1. Apresentação do novo modelo, em sua relação ao modelo original;
+    Novo modelço com regras de sobrevivência variavéis, ao invés da padrao de John Conway (23/3)
 2. Descrição da hipótese causal que você deseja comprovar;
+    Quanto maior a proporcionalidade das regras, mais estável os léxicos são.
 3. Justificativa para as mudanças que você fez, em relação ao código original;
-4. Orientação sobre como usar o simulador; e
+    Método de contar vizinhos e como calcular se a celula nasce ou morre, para que possa ser passada como argumento
+4. Orientação sobre como usar o simulador;
+    Por enquanto é preciso passar os valores das regras dinamicamente no arquivo 
 5. Descrição das variáveis do modelo usadas na simulação;
-6. Quaisquer outras informações que você julgue importante;
-7. O resto do repositório deve conter o seu código.
+    Quantidade de vizinhos para que a celula fiquer viva
+    Quantidade de vizinhos para que uma celula morta nasça
 
 
