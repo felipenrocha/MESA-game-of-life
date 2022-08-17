@@ -1,3 +1,0 @@
-stillAlive1= 2
-stillAlive2 = 3
-born = 3

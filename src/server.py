@@ -3,7 +3,7 @@ from mesa.visualization.ModularVisualization import ModularServer
 
 
 from portrayal import portrayCell
-from life_model import GameOfLifeModel
+from src.model import GameOfLifeModel
 
 import json
 
@@ -12,15 +12,19 @@ canvas_element = CanvasGrid(portrayCell, 50, 50, 500, 500)
 
 chart = ChartModule([{"Label": "likeness",
                       "Color": "black"}],
-                    data_collector_name='datacollector')
+                      canvas_height=50,
+                      canvas_width=100,
+                    data_collector_name='datacollector'
+                    )
 chart2 = ChartModule([{"Label": "alive_cells",
                       "Color": "green"}, {"Label": "dead_cells",
-                      "Color": "red"}],
+                      "Color": "red"}],  canvas_height=50,
+                      canvas_width=100,
                     data_collector_name='datacollector')
 
 
 rules ={}
-with open('rules.json') as json_file:
+with open('src/rules.json') as json_file:
     rules = json.load(json_file)
  
 
