@@ -9,7 +9,6 @@
 
 `
 pip install -r requirements.txt
-
 ` 
 
 # Compilação
