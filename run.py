@@ -4,5 +4,5 @@ from src.model import plt
 
 if __name__ == "__main__":
    server.launch()
-   plt.show()
+   
    
