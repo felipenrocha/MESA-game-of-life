@@ -11,17 +11,26 @@
 pip install -r requirements.txt
 ` 
 
-# Compilação
+# Execução do servidor:
+
 
 ` 
 python run.py
 `
 
-# Obs.: Para mudar as variavéis independentes precimaso alterá-las diretamente no arquivo rules.txt
+
+
+# Execução da carga de experimentos (resultando em csv):
+
+
+` 
+python batch_run.py
+`
+
+Regra Passada como string "B3/S23"
 
 
 
-TODO: mudar as regras para serem mais dinâmicas com o servidor.
 
 
 1. Apresentação do novo modelo, em sua relação ao modelo original;
