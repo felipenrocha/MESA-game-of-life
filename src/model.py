@@ -45,6 +45,8 @@ def compute_dead_cells(model):
     dead_cells_percent = dead_cells / number_of_cells
 
     return dead_cells_percent
+def compute_average_rule(model):
+    return model.average_rule
 
 
 class GameOfLifeModel(mesa.Model):
@@ -68,7 +70,6 @@ class GameOfLifeModel(mesa.Model):
         self.altura = altura
         self.largura = largura
 
-        self.datacollector = DataCollector(model_reporters={"likeness": compute_likeness, "alive_cells": compute_alive_cells, "dead_cells":compute_dead_cells})
 
 
 
@@ -76,14 +77,21 @@ class GameOfLifeModel(mesa.Model):
         # making the list of integers to use in rule
         string_split = rule.split('/')
     
-        
+
         born_int = string_split[0].replace('B', '')
         born = [int(x) for x in born_int]
+        born_average = get_average(born)
 
 
         survive_int = string_split[1].replace('S', '')
         survive = [int(x) for x in str(survive_int)]
+        survive_average = get_average(survive)
         
+
+        self.average_rule = survive_average / born_average
+
+        print('average', self.average_rule)
+        self.datacollector = DataCollector(model_reporters={"likeness": compute_likeness, "alive_cells": compute_alive_cells, "dead_cells":compute_dead_cells, "average_rule": compute_average_rule})
 
 
         # coord_iter(): An iterator that returns coordinates as well as cell contents.
@@ -107,3 +115,9 @@ class GameOfLifeModel(mesa.Model):
 
 
 
+def get_average(list):
+    """Get average of integers list"""
+    list_total = 0
+    for number in list:
+        list_total = list_total + number
+    return list_total / len(list)

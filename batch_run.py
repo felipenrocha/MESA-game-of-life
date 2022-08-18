@@ -10,42 +10,16 @@ from src.model import GameOfLifeModel
 
 experiments_per_parameter_configuration = 100
 max_steps_per_simulation = 300
-max_steps = 250
-iterations = 5
+max_steps = 500
+iterations = 15
 
-# params  = {
-#     "largura": 50,
-#     "altura": 50,
-#     "density": .5,
-#     "survive": 23,
-#     "born": 3  
-# }
-
-
-param1  = {
+params  = {
     "largura": 50,
     "altura": 50,
     "density": .5,
-    "survive": 23,
-    "born": 3  
-}
-param2  = {
-    "largura": 50,
-    "altura": 50,
-    "density": .5,
-    "survive": 23,
-    "born": 36 
-}
-param3  = {
-    "largura": 50,
-    "altura": 50,
-    "density": .5,
-    "survive": 34,
-    "born": 2 
+    "rule": ["B3/S23", "B6/S16", "B36/S23", "B1357/S1357"]
 }
 
-
-params = {param1,param2,param3}
 if __name__ == "__main__":
     # running the test
     results= mesa.batch_run(
@@ -62,4 +36,4 @@ if __name__ == "__main__":
     results_df=pd.DataFrame(results)
     now = str(datetime.now()).replace(":", "-").replace(" ", "-")
     file_name_suffix = ("_iter_" + str(experiments_per_parameter_configuration) + "_steps_" + str(max_steps_per_simulation) + "_" + now)
-    results_df.to_csv("results/Game_of_life_model_data" + file_name_suffix + ".csv")
+    results_df.to_csv("results/Game_of_life_model_data" + file_name_suffix + ".csv", sep=';')
