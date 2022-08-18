@@ -51,7 +51,9 @@ class GameOfLifeModel(mesa.Model):
     """
     Classe para o modelo do Game Of Life
     """
-    def __init__(self, largura=50, altura=50, survive=23, born=3,density=.5):
+    # def __init__(self, largura=50, altura=50, survive=23, born=3,density=.5):
+    def __init__(self, largura=50, altura=50, rule="B3/S23",density=.5):
+    
         self.schedule = SimultaneousActivation(self)
 
         # novo grid com a altura e largura passado na construcao do objeto
@@ -72,8 +74,17 @@ class GameOfLifeModel(mesa.Model):
 
         # adicionar celulas aleatoriamente: 
         # making the list of integers to use in rule
-        born = [int(x) for x in str(born)]
-        survive = [int(x) for x in str(survive)]
+        string_split = rule.split('/')
+    
+        
+        born_int = string_split[0].replace('B', '')
+        born = [int(x) for x in born_int]
+
+
+        survive_int = string_split[1].replace('S', '')
+        survive = [int(x) for x in str(survive_int)]
+        
+
 
         # coord_iter(): An iterator that returns coordinates as well as cell contents.
 
