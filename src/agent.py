@@ -63,6 +63,5 @@ class GameOfLifeAgent(mesa.Agent):
         '''
             Declara o proximo estado do grid, definido em step;
         '''
-        self.semelhanca = self.model.semelhanca
         self.estado = self.proximoEstado
         

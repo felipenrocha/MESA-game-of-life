@@ -19,6 +19,8 @@ def compute_likeness(model):
     number_of_cells = model.largura * model.altura
     semelhanca =  (number_of_cells - soma)/number_of_cells
     return semelhanca
+
+
 def compute_alive_cells(model):
     """Função que retorna a porcentagem de celulas vivas (variavel dependente)"""
 
@@ -55,20 +57,18 @@ class GameOfLifeModel(mesa.Model):
     """
     # def __init__(self, largura=50, altura=50, survive=23, born=3,density=.5):
     def __init__(self, largura=50, altura=50, rule="B3/S23",density=.5):
-    
-        self.schedule = SimultaneousActivation(self)
-
-        # novo grid com a altura e largura passado na construcao do objeto
-        self.grid = Grid(largura, altura, torus=False)
-        # rules of game (variavel independente)
-
-
-        # mantemos um grid do ultimo passo para fazer o calcula da diferenca entre estados. Inicializado como nenhum.
-        self.lastGrid = Grid(largura, altura, torus=False)
-        self.semelhanca = 0
+        self.schedule = SimultaneousActivation(self)              
         #  altura, largura
         self.altura = altura
         self.largura = largura
+
+
+        # novo grid com a altura e largura passado na construcao do objeto
+        self.grid = Grid(largura, altura, torus=False)
+        # mantemos um grid do ultimo passo para fazer o calcula da diferenca entre estados. 
+        self.lastGrid = Grid(largura, altura, torus=False)
+
+
 
 
 
@@ -80,25 +80,25 @@ class GameOfLifeModel(mesa.Model):
 
         born_int = string_split[0].replace('B', '')
         born = [int(x) for x in born_int]
-        born_average = get_average(born)
 
 
         survive_int = string_split[1].replace('S', '')
         survive = [int(x) for x in str(survive_int)]
+        
+        born_average = get_average(born)
         survive_average = get_average(survive)
+        self.average_rule = survive_average / born_average
         
 
-        self.average_rule = survive_average / born_average
 
-        print('average', self.average_rule)
-        self.datacollector = DataCollector(model_reporters={"likeness": compute_likeness, "alive_cells": compute_alive_cells, "dead_cells":compute_dead_cells, "average_rule": compute_average_rule})
+        self.datacollector = DataCollector(model_reporters={ "alive_cells": compute_alive_cells, "dead_cells":compute_dead_cells, "average_rule": compute_average_rule, "likeness": compute_likeness})
 
 
         # coord_iter(): An iterator that returns coordinates as well as cell contents.
 
         for grid_content, x, y in self.grid.coord_iter():
-            celula = GameOfLifeAgent((x,y), self, survive, born, self.semelhanca)
-            celula2 = GameOfLifeAgent((x,y), self, survive, born, self.semelhanca)
+            celula = GameOfLifeAgent((x,y), self, survive, born)
+            celula2 = GameOfLifeAgent((x,y), self, survive, born)
             # para o nosso teste, os estados das celulas serao definidos aleatoriamente (50%)
             # semelhante a densidade de celulas vivas
             if random() > density :

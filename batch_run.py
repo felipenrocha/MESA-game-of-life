@@ -11,13 +11,13 @@ from src.model import GameOfLifeModel
 experiments_per_parameter_configuration = 100
 max_steps_per_simulation = 300
 max_steps = 500
-iterations = 15
+iterations = 10
 
 params  = {
     "largura": 50,
     "altura": 50,
     "density": .5,
-    "rule": ["B3/S23", "B6/S16", "B36/S23", "B1357/S1357"]
+    "rule": ["B2/S34", "B3/S23", "B6/S16", "B36/S23", "B1357/S1357", "B34/S34", "B15/S28"]
 }
 
 if __name__ == "__main__":
