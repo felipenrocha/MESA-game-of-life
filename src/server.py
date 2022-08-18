@@ -26,6 +26,7 @@ chart2 = ChartModule([{"Label": "alive_cells",
 rules ={}
 with open('src/rules.json') as json_file:
     rules = json.load(json_file)
- 
+survive = rules['survive']
+born = rules['born']
 
-server = ModularServer(GameOfLifeModel, [canvas_element, chart, chart2], "Game of Life", {"altura":50, "largura":50, "rules": rules})
+server = ModularServer(GameOfLifeModel, [canvas_element, chart, chart2], "Game of Life", {"altura":50, "largura":50, "survive": survive, "born":born})

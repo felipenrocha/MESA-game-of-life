@@ -8,9 +8,9 @@ from src.agent import GameOfLifeAgent
 
 
 def compute_likeness(model):
-    soma = 0
-        # cellmates = self.model.grid.get_cell_list_contents([self.pos])
+    """Função que retorna a semelhanca em porcentagem do estado atual do modelo, comparado ao estado passado."""
 
+    soma = 0
     for grid_content, x, y in model.grid.coord_iter():
             celula_atual_estado = grid_content.estado
             celula_anterior_estado = model.lastGrid.grid[x][y].estado
@@ -20,26 +20,38 @@ def compute_likeness(model):
     semelhanca =  (number_of_cells - soma)/number_of_cells
     return semelhanca
 def compute_alive_cells(model):
+    """Função que retorna a porcentagem de celulas vivas (variavel dependente)"""
+
     alive_cells = 0
+    # numero de celulas 
+    number_of_cells = model.largura * model.altura
 
     for grid_content, x, y in model.grid.coord_iter():
         if grid_content.estado  == grid_content.VIVO:
             alive_cells = alive_cells + 1
-        
-    return alive_cells
+    # porcentagem de celulas vivas = celulas_vivas/total_celulas
+    alive_cells_percent = alive_cells / number_of_cells
+    return alive_cells_percent
 def compute_dead_cells(model):
+    """Função que retorna a porcentagem de celulas mortas (variavel dependente)"""
     dead_cells = 0
+     # numero de celulas 
+    number_of_cells = model.largura * model.altura
+    
     for grid_content, x, y in model.grid.coord_iter():
         if grid_content.estado  == grid_content.MORTO:
             dead_cells = dead_cells + 1
-    return dead_cells
+    # porcentagem de celulas mortas = celulas_mortas/total_celulas
+    dead_cells_percent = dead_cells / number_of_cells
+
+    return dead_cells_percent
 
 
 class GameOfLifeModel(mesa.Model):
     """
     Classe para o modelo do Game Of Life
     """
-    def __init__(self, largura, altura, rules,initial_born=.5):
+    def __init__(self, largura=50, altura=50, survive=[2,3], born=[3],density=.5):
         # ativacao simultanea (ao inves de aleatoria) 
         # utilizamos ativacao simultanea por que o proximo estado de cada celula
         # depende do estado atual.
@@ -63,14 +75,16 @@ class GameOfLifeModel(mesa.Model):
 
         # adicionar celulas aleatoriamente: 
 
-
+        print(born)
+        print(survive)
         # coord_iter(): An iterator that returns coordinates as well as cell contents.
 
         for grid_content, x, y in self.grid.coord_iter():
-            celula = GameOfLifeAgent((x,y), self, rules['survive'],rules['born'], self.semelhanca)
-            celula2 = GameOfLifeAgent((x,y), self, rules['survive'],rules['born'], self.semelhanca)
+            celula = GameOfLifeAgent((x,y), self, survive, born, self.semelhanca)
+            celula2 = GameOfLifeAgent((x,y), self, survive, born, self.semelhanca)
             # para o nosso teste, os estados das celulas serao definidos aleatoriamente (50%)
-            if random() > initial_born :
+            # semelhante a densidade de celulas vivas
+            if random() > density :
                 celula.estado = celula.VIVO
             self.grid.place_agent(celula, (x,y))
             self.lastGrid.place_agent(celula2, (x,y))
