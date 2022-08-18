@@ -77,6 +77,10 @@ class GameOfLifeModel(mesa.Model):
 
         print(born)
         print(survive)
+        # making the list of integers to use in rule
+        born = [int(x) for x in str(born)]
+        survive = [int(x) for x in str(survive)]
+
         # coord_iter(): An iterator that returns coordinates as well as cell contents.
 
         for grid_content, x, y in self.grid.coord_iter():
