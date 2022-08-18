@@ -51,10 +51,7 @@ class GameOfLifeModel(mesa.Model):
     """
     Classe para o modelo do Game Of Life
     """
-    def __init__(self, largura=50, altura=50, survive=[2,3], born=[3],density=.5):
-        # ativacao simultanea (ao inves de aleatoria) 
-        # utilizamos ativacao simultanea por que o proximo estado de cada celula
-        # depende do estado atual.
+    def __init__(self, largura=50, altura=50, survive=23, born=3,density=.5):
         self.schedule = SimultaneousActivation(self)
 
         # novo grid com a altura e largura passado na construcao do objeto
@@ -74,9 +71,6 @@ class GameOfLifeModel(mesa.Model):
 
 
         # adicionar celulas aleatoriamente: 
-
-        print(born)
-        print(survive)
         # making the list of integers to use in rule
         born = [int(x) for x in str(born)]
         survive = [int(x) for x in str(survive)]
