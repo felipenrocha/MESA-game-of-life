@@ -49,6 +49,8 @@ def compute_dead_cells(model):
     return dead_cells_percent
 def compute_average_rule(model):
     return model.average_rule
+def compute_len_rule(model):
+    return model.len_rule
 
 
 class GameOfLifeModel(mesa.Model):
@@ -90,8 +92,12 @@ class GameOfLifeModel(mesa.Model):
         self.average_rule = survive_average / born_average
         
 
+        # gettin len rule:
+        # len born - len surive
+        self.len_rule = len(born) - len(survive) 
 
-        self.datacollector = DataCollector(model_reporters={ "alive_cells": compute_alive_cells, "dead_cells":compute_dead_cells, "average_rule": compute_average_rule, "likeness": compute_likeness})
+
+        self.datacollector = DataCollector(model_reporters={ "alive_cells": compute_alive_cells, "dead_cells":compute_dead_cells, "average_rule": compute_average_rule, "likeness": compute_likeness, "len_rule":compute_len_rule})
 
 
         # coord_iter(): An iterator that returns coordinates as well as cell contents.
