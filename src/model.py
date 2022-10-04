@@ -30,9 +30,9 @@ def compute_alive_cells(model):
 
     for grid_content, x, y in model.grid.coord_iter():
         if grid_content.estado  == grid_content.VIVO:
-            alive_cells = alive_cells + 1
+            alive_cells += 1
     # porcentagem de celulas vivas = celulas_vivas/total_celulas
-    alive_cells_percent = alive_cells / number_of_cells
+    alive_cells_percent = 1 - compute_dead_cells(model)
     return alive_cells_percent
 def compute_dead_cells(model):
     """Função que retorna a porcentagem de celulas mortas (variavel dependente)"""
@@ -47,10 +47,15 @@ def compute_dead_cells(model):
     dead_cells_percent = dead_cells / number_of_cells
 
     return dead_cells_percent
+    
 def compute_average_rule(model):
     return model.average_rule
 def compute_len_rule(model):
     return model.len_rule
+def compute_len_born(model):
+    return model.len_born
+def compute_len_survive(model):
+    return model.len_survive
 
 
 class GameOfLifeModel(mesa.Model):
@@ -93,11 +98,14 @@ class GameOfLifeModel(mesa.Model):
         
 
         # gettin len rule:
+        self.len_born = len(born)
+        self.len_survive = len(survive) 
         # len born - len surive
-        self.len_rule = len(born) - len(survive) 
-
-
-        self.datacollector = DataCollector(model_reporters={ "alive_cells": compute_alive_cells, "dead_cells":compute_dead_cells, "average_rule": compute_average_rule, "likeness": compute_likeness, "len_rule":compute_len_rule})
+        self.len_rule = self.len_born - self.len_survive
+  
+        self.datacollector = DataCollector(model_reporters={ "alive_cells": compute_alive_cells, "dead_cells":compute_dead_cells,
+         "average_rule": compute_average_rule, "likeness": compute_likeness, "len_rule":compute_len_rule, "len_born": compute_len_born, "len_survive": compute_len_survive
+         })
 
 
         # coord_iter(): An iterator that returns coordinates as well as cell contents.
