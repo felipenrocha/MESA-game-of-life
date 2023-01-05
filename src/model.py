@@ -51,7 +51,7 @@ def compute_dead_cells(model):
 def compute_average_rule(model):
     return model.average_rule
 def compute_len_rule(model):
-    return model.len_rule
+    return abs(model.len_rule)
 def compute_len_born(model):
     return model.len_born
 def compute_len_survive(model):
