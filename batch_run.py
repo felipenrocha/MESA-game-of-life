@@ -11,7 +11,7 @@ from random_rules import generate_rule
 experiments_per_parameter_configuration = 100
 max_steps_per_simulation = 300
 # number of rules generated randomly
-sample_size = 500
+sample_size = 950
 max_steps = 350
 iterations = 1
 rules = []
